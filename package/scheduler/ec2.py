@@ -11,29 +11,28 @@ class ManageEc2():
   def stop(self):
     print('Stopping...')
     response = self.aws.stop_instances(
-      InstanceIds=[
-        'i-0e3dbccdc9b8d2348',
-      ]
+      InstanceIds=self.instances
     )
     print(response)
   
   def start(self):
     print('Starting...')
     response = self.aws.start_instances(
-      InstanceIds=[
-        'i-0e3dbccdc9b8d2348',
-      ],
+      InstanceIds=self.instances,
       DryRun=False
     )
     print(response)
 
   def collect(self):
     print('Collection instances...')
+    filter_name = f"tag:{self.tags['Key']}"
+    print(self.tags)
+    print(filter_name)
     instances = self.aws.describe_instances(
       Filters=[
         {
-           "Name": f"tag:{self.tags['Key']}",
-           "Values": [self.tags['Value'],]
+           "Name": filter_name,
+           "Values": ['dev',]
         },
       ],
     )
