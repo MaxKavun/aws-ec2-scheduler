@@ -4,5 +4,6 @@ A Terraform module for placing Lambda function with AWS EventBridge rules for sc
 
 - [x] Terraform wrapper for Python
 - [ ] Documentation
-- [ ] IAM Role creation
-- [ ] AWS EventBridge rules
+- [x] IAM Role creation
+- [x] AWS EventBridge rule
+- [ ] AWS EventBridge target
