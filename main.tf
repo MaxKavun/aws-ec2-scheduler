@@ -72,18 +72,22 @@ resource "aws_lambda_function" "ec2_scheduler" {
   runtime = "python3.8"
   environment {
     variables = {
-      TAG_KEY         = "Env"
-      TAG_VALUE       = "dev"
-      SCHEDULE_ACTION = "start"
-      EC2_SCHEDULE    = "true"
+      TAG_KEY         = var.tag_key
+      TAG_VALUE       = var.tag_value
+      SCHEDULE_ACTION = var.schedule_action
+      EC2_SCHEDULE    = var.ec2_schedule
     }
   }
 }
 
-resource "aws_cloudwatch_event_rule" "ec2-start" {
+resource "aws_cloudwatch_event_rule" "ec2_start" {
   name                = "ec2-rule-start"
   description         = "Rule to start ec2 instances"
   schedule_expression = "cron(0 8 ? * MON-FRI *)"
 }
 
-
+resource "aws_cloudwatch_event_target" "lambda_call" {
+  target_id = "lambda-call"
+  rule      = aws_cloudwatch_event_rule.ec2_start.name
+  arn       = aws_lambda_function.ec2_scheduler.arn
+}

@@ -6,4 +6,5 @@ A Terraform module for placing Lambda function with AWS EventBridge rules for sc
 - [ ] Documentation
 - [x] IAM Role creation
 - [x] AWS EventBridge rule
-- [ ] AWS EventBridge target
+- [x] AWS EventBridge target
+- [ ] Move all variables and add output to corresponding files
