@@ -83,7 +83,7 @@ resource "aws_lambda_function" "ec2_scheduler" {
 resource "aws_cloudwatch_event_rule" "ec2_start" {
   name                = "ec2-rule-start"
   description         = "Rule to start ec2 instances"
-  schedule_expression = "cron(0 8 ? * MON-FRI *)"
+  schedule_expression = var.schedule_time
 }
 
 resource "aws_cloudwatch_event_target" "lambda_call" {
